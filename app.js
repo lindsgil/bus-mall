@@ -1,95 +1,161 @@
 'use strict';
 
 //Set up an array of images from Assets folder
+var imageArrayPath = [ 'img/assets/bag.jpg', 'img/assets/banana.jpg', 'img/assets/bathroom.jpg', 'img/assets/boots.jpg', 'img/assets/breakfast.jpg', 'img/assets/bubblegum.jpg', 'img/assets/chair.jpg', 'img/assets/cthulhu.jpg', 'img/assets/dog-duck.jpg', 'img/assets/dragon.jpg', 'img/assets/pen.jpg', 'img/assets/pet-sweep.jpg', 'img/assets/scissors.jpg', 'img/assets/shark.jpg', 'img/assets/sweep.png', 'img/assets/tauntaun.jpg', 'img/assets/unicorn.jpg', 'img/assets/usb.gif', 'img/assets/water-can.jpg', 'img/assets/wine-glass.jpg'];
 
-var imageArray = [
-  {
-    path: 'img/assets/bag.jpg',
-    name: 'bag',
-  },
-  {
-    path: 'img/assets/banana.jpg',
-    name: 'banana',
-  },
-  {
-    path: 'img/assets/bathroom.jpg',
-    name: 'bathroom',
-  },
-  {
-    path: 'img/assets/boots.jpg',
-    name: 'boots',
-  },
-  {
-    path: 'img/assets/breakfast.jpg',
-    name: 'breakfast',
-  },
-  {
-    path: 'img/assets/bubblegum.jpg',
-    name: 'bubblegum',
-  },
-  {
-    path: 'img/assets/chair.jpg',
-    name: 'chair',
-  },
-  {
-    path: 'img/assets/cthulhu.jpg',
-    name: 'cthulhu',
-  },
-  {
-    path: 'img/assets/dog-duck.jpg',
-    name: 'dog-duck',
-  },
-  {
-    path: 'img/assets/dragon.jpg',
-    name: 'dragon',
-  },
-  {
-    path: 'img/assets/pen.jpg',
-    name: 'pen',
-  },
-  {
-    path: 'img/assets/pet-sweep.jpg',
-    name: 'pet-sweep',
-  },
-  {
-    path: 'img/assets/scissors.jpg',
-    name: 'scissors',
-  },
-  {
-    path: 'img/assets/shark.jpg',
-    name: 'shark',
-  },
-  {
-    path: 'img/assets/sweep.png',
-    name: 'sweep',
-  },
-  {
-    path: 'img/assets/tauntaun.jpg',
-    name: 'tauntaun',
-  },
-  {
-    path: 'img/assets/unicorn.jpg',
-    name: 'unicorn',
-  },
-  {
-    path: 'img/assets/usb.gif',
-    name: 'usb',
-  },
-  {
-    path: 'img/assets/water-can.jpg',
-    name: 'water-can',
-  },
-  {
-    path: 'img/assets/wine-glass.jpg',
-    name: 'wine-glass',
-  },
-];
+// //Global Variables
+var totClicks = 25;
+var click = 0;
+var totProducts = [];
+var randomImageIndices = [];
+//
+// // Define variables to access elements from DOM
+// var left = document.getElementById('left');
+// var cent = document.getElementById('cent');
+// var right = document.getElementById('right');
+// var picCont = document.getElementById('pic-cont');
+//
+// //Define constructor for product images
+function ProductImage(path) {
+  this.path = path;
+  this.views = 0;
+  this.clicks = 0;
+}
+//
+for (var i = 0; i < imageArrayPath.length; i++) {
+  var imageArray = imageArrayPath[i];
+  var productIm = new ProductImage(imageArray);
+  totProducts.push(productIm);
+}
 
+// //Set up function to come up with a random number corresponding to imageArrayPath index
 function getRandImages() {
   var randomImageIndices = [];
   while(randomImageIndices.length < 3) {
-    Math.floor(Math.random() * (imageArray.length + 1));
-    var possIndex = Math.floor(Math.random() * (imageArray.length + 1));
+    Math.floor(Math.random() * (totProducts.length + 1));
+    var possIndex = Math.floor(Math.random() * (totProducts.length + 1));
+    console.log('possIndex', possIndex);
+    if (randomImageIndices.indexOf(possIndex) === -1) {
+      randomImageIndices.push(possIndex);
+    }
+  }
+  return randomImageIndices;
+  console.log('randomImageIndices', randomImageIndices);
+}
+getRandImages();
+//
+// //Set up function to procure a random number corresponding to imageArrayPath index
+// function randImage() {
+//   return Math.floor(Math.random() * totProducts.length);
+// }
+//
+// //Function to display new images
+// function displayPic() {
+//   var leftIm = randImage();
+//   var centIm = randImage();
+//   var rightIm = randImage();
+//
+//   while (centIm === leftIm) {
+//     centIm = randImage();
+//   }
+//   while (rightIm === centIm || rightIm === leftIm) {
+//     rightIm = randImage();
+//   }
+//
+//   var leftProd = totProducts[leftIm];
+//   leftProd.views += 1;
+//
+//   var centProd = totProducts[centIm];
+//   centProd.views += 1;
+//
+//   var rightProd = totProducts[rightIm];
+//   rightProd.views += 1;
+//
+//   console.log('leftProd', leftProd);
+// }
+//
+// displaypic();
+// //For loop creating a new array with random images from above
+// for (var i = 0; i < randomImageIndices.length; i++){
+//   var imageString = randomImageIndices[i];
+//   console.log('imageString', imageString);
+//   var leftImage = randomImageIndices[0];
+//   var centImage = randomImageIndices[1];
+//   var rightImage = randomImageIndices[2];
+// }
+//
+// //Function to show images
+// function showLeftImage() {
+//   document.write('<img src=" ' + leftImage + ' ">');
+// }
+//
+// function showCentImage() {
+//   document.write('<img src=" ' + centImage + ' ">');
+// }
+//
+// function showRightImage() {
+//   document.write('<img src=" ' + rightImage + ' ">');
+// }
+//
+var k = 0;
+var imageGen = [];
+for (var i = 0; i < imageArrayPath.length; i++) {
+  imageGen[i] = new Image();
+  imageGen[i].src = imageArrayPath[i];
+}
+
+for (var i = 0; i < imageArrayPath.length; i++) {
+  var newImage = new ChoiceImage(imageArrayPath[i].name, imageArrayPath[i].path);
+  console.log('newImage', newImage);
+}
+
+imageArrayPath[0] = 'img/assets/bag.jpg';
+imageArrayPath[1] = 'img/assets/banana.jpg';
+
+function ChoiceImage(path) {
+  this.path = path;
+  this.clicks = 0;
+  this.display = 0;
+}
+
+for (var i = 0; i < imageArrayPath.length; i++){
+  var imageString = imageArrayPath[i];
+  console.log(imageString);
+}
+
+var k = 0;
+var imageGen = new Array();
+for (var i = 0; i < imageArrayPath.length; i++) {
+  imageGen[i] = new Image();
+  imageGen[i].src = imageArrayPath[i];
+}
+var someImage = Math.round(Math.random() * (imageArrayPath.length - 1));
+function showImage() {
+  document.write('<img src=" ' + imageArrayPath[someImage] + ' ">');
+}
+var someImage2 = Math.round(Math.random() * (imageArrayPath.length - 1));
+if (someImage2 === someImage) {
+  var someImage2 = Math.round(Math.random() * (imageArrayPath.length - 1));
+} else {
+  function showImage2() {
+    document.write('<img src=" ' + imageArrayPath[someImage2] + ' ">');
+  }
+}
+var someImage3 = Math.round(Math.random() * (imageArrayPath.length - 1));
+function showImage3() {
+  if (someImage3 === someImage || someImage3 === someImage2) {
+    var someImage3 = Math.round(Math.random() * (imageArrayPath.length - 1));
+  } else {
+    document.write('<img src=" ' + imageArrayPath[someImage3] + ' ">');
+  }
+}
+//
+//Set up function to come up with a random number corresponding to imageArrayPath index
+function getRandImages() {
+  var randomImageIndices = [];
+  while(randomImageIndices.length < 3) {
+    Math.floor(Math.random() * (totProducts.length + 1));
+    var possIndex = Math.floor(Math.random() * (totProducts.length + 1));
     console.log('possIndex', possIndex);
     if (randomImageIndices.indexOf(possIndex) === -1) {
       randomImageIndices.push(possIndex);
@@ -97,84 +163,7 @@ function getRandImages() {
   }
   return randomImageIndices;
 }
-
-for (var i = 0; i < randomImageIndices.length; i++){
-  var imageString = randomImageIndices[i];
-  console.log('imageString', imageString);
-}
 //
-// var k = 0;
-// var imageGen = new Array();
-// for (var i = 0; i < imageArray.length; i++) {
-//   imageGen[i] = new Image();
-//   imageGen[i].src = imageArray[i];
-// }
-
-//
-// for (var i = 0; i < imageArray.length; i++) {
-//   var newImage = new ChoiceImage(imageArray[i].name, imageArray[i].path);
-//   console.log('newImage', newImage);
-// }
-
-// imageArray[0] = 'img/assets/bag.jpg';
-// imageArray[1] = 'img/assets/banana.jpg';
-// imageArray[2] = 'img/assets/bathroom.jpg';
-// imageArray[3] = 'img/assets/boots.jpg';
-// imageArray[4] = 'img/assets/breakfast.jpg';
-// imageArray[5] = 'img/assets/bubblegum.jpg';
-// imageArray[6] = 'img/assets/chair.jpg';
-// imageArray[7] = 'img/assets/cthulhu.jpg';
-// imageArray[8] = 'img/assets/dog-duck.jpg';
-// imageArray[9] = 'img/assets/dragon.jpg';
-// imageArray[10] = 'img/assets/pen.jpg';
-// imageArray[11] = 'img/assets/pet-sweep.jpg';
-// imageArray[12] = 'img/assets/scissors.jpg';
-// imageArray[13] = 'img/assets/shark.jpg';
-// imageArray[14] = 'img/assets/sweep.png';
-// imageArray[15] = 'img/assets/tauntaun.jpg';
-// imageArray[16] = 'img/assets/unicorn.jpg';
-// imageArray[17] = 'img/assets/usb.gif';
-// imageArray[18] = 'img/assets/water-can.jpg';
-// imageArray[19] = 'img/assets/wine-glass.jpg';
-//
-// function ChoiceImage(imageName, path) {
-//   this.imageName = imageName;
-//   this.path = path;
-//   this.clicks = 0;
-//   this.display = 0;
-// }
-//
-// // for (var i = 0; i < imageArray.length; i++){
-// //   var imageString = imageArray[i];
-// //   console.log(imageString);
-// // }
-//
-// var k = 0;
-// var imageGen = new Array();
-// for (var i = 0; i < imageArray.length; i++) {
-//   imageGen[i] = new Image();
-//   imageGen[i].src = imageArray[i];
-// }
-// var someImage = Math.round(Math.random() * (imageArray.length - 1));
-// function showImage() {
-//   document.write('<img src=" ' + imageArray[someImage] + ' ">');
-// }
-// var someImage2 = Math.round(Math.random() * (imageArray.length - 1));
-// if (someImage2 === someImage) {
-//   var someImage2 = Math.round(Math.random() * (imageArray.length - 1));
-// } else {
-//   function showImage2() {
-//     document.write('<img src=" ' + imageArray[someImage2] + ' ">');
-//   }
-// }
-// var someImage3 = Math.round(Math.random() * (imageArray.length - 1));
-// function showImage3() {
-//   if (someImage3 === someImage || someImage3 === someImage2) {
-//     var someImage3 = Math.round(Math.random() * (imageArray.length - 1));
-//   } else {
-//     document.write('<img src=" ' + imageArray[someImage3] + ' ">');
-//   }
-// }
 // console.log('someImage3', someImage3);
 // console.log('someImage', someImage);
 // console.log('someImage2', someImage2);
