@@ -120,6 +120,7 @@ function displayList() {
     var liEl = document.createElement('li');
     liEl.textContent = totProducts[j].name + 'has been clicked' + totProducts[j].clicks;
     resultsEl.appendChild(liEl);
+    localStorage.totalProducts = JSON.stringify(totProducts);
   }
   left.removeEventListener('click', picClicks);
   cent.removeEventListener('click', picClicks);
