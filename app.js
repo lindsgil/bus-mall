@@ -3,13 +3,14 @@
 //Set up an array of images from Assets folder
 var imageArrayPath = [ 'img/assets/bag.jpg', 'img/assets/banana.jpg', 'img/assets/bathroom.jpg', 'img/assets/boots.jpg', 'img/assets/breakfast.jpg', 'img/assets/bubblegum.jpg', 'img/assets/chair.jpg', 'img/assets/cthulhu.jpg', 'img/assets/dog-duck.jpg', 'img/assets/dragon.jpg', 'img/assets/pen.jpg', 'img/assets/pet-sweep.jpg', 'img/assets/scissors.jpg', 'img/assets/shark.jpg', 'img/assets/sweep.png', 'img/assets/tauntaun.jpg', 'img/assets/unicorn.jpg', 'img/assets/usb.gif', 'img/assets/water-can.jpg', 'img/assets/wine-glass.jpg'];
 
-var imageArrayName = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
+var imageArrayName = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
 
 //Variables to access elements from DOM
 var picCont = document.getElementById('pic-cont');
 var left = document.getElementById('left');
 var cent = document.getElementById('cent');
 var right = document.getElementById('right');
+var resultsEl = document.getElementById('results');
 
 // //Global Variables
 var totClicks = 25;
@@ -44,48 +45,59 @@ function getRandImage() {
 //   }
 //   return randomImageIndices;
 //   console.log('randomImageIndices', randomImageIndices);
-  return Math.floor(Math.random() * (totProducts.length + 1));
+  return Math.floor(Math.random() * (totProducts.length));
 }
 // getRandImages();
 
+function displayThreeImages(){
 //Function to display images
-var leftPic = getRandImage();
-var centPic = getRandImage();
-var rightPic = getRandImage();
+  var leftPic = getRandImage();
+  var centPic = getRandImage();
+  var rightPic = getRandImage();
 
-console.log('leftPic', leftPic);
-console.log('centPic', centPic);
-console.log('rightPic', rightPic);
+  console.log('leftPic', leftPic);
+  console.log('centPic', centPic);
+  console.log('rightPic', rightPic);
 
-while (leftPic === centPic) {
-  centPic = getRandImage();
-}
-while (rightPic === leftPic || rightPic === centPic) {
-  rightPic = getRandImage();
-}
-console.log('pic-cont', picCont);
+  while (leftPic === centPic) {
+    centPic = getRandImage();
+  }
+  while (rightPic === leftPic || rightPic === centPic) {
+    rightPic = getRandImage();
+  }
+  console.log('pic-cont', picCont);
 
-// picCont.removeChild(left);
-// left = document.createElement('img');
-left.setAttribute('src', totProducts[leftPic].path);
-left.setAttribute('alt', totProducts[leftPic].name);
-console.log('left', left);
-// picCont.appendChild('left');
+  // picCont.removeChild(left);
+  // left = document.createElement('img');
+  left.setAttribute('src', totProducts[leftPic].path);
+  left.setAttribute('alt', totProducts[leftPic].name);
+  console.log('left', left);
+  totProducts[leftPic].views++;
+  // picCont.appendChild('left');
 
-// picCont.removeChild(cent);
-// cent = document.createElement('img');
-cent.setAttribute('src', totProducts[centPic].path);
-cent.setAttribute('alt', totProducts[centPic].name);
-// picCont.appendChild('cent', cent);
+  // picCont.removeChild(cent);
+  // cent = document.createElement('img');
+  cent.setAttribute('src', totProducts[centPic].path);
+  cent.setAttribute('alt', totProducts[centPic].name);
+  totProducts[centPic].views++;
+  // picCont.appendChild('cent', cent);
 
-// picCont.removeChild(right);
-// right = document.createElement('img');
-right.setAttribute('src', totProducts[rightPic].path);
-right.setAttribute('alt', totProducts[rightPic].name);
-// picCont.appendChild('right');
+  // picCont.removeChild(right);
+  // right = document.createElement('img');
+  right.setAttribute('src', totProducts[rightPic].path);
+  right.setAttribute('alt', totProducts[rightPic].name);
+  totProducts[rightPic].views++;
+  // picCont.appendChild('right');
 
-var currentPics = totProducts[leftPic, centPic, rightPic];
+  //add event listener
+  right.addEventListener('click', picClicks);
+  cent.addEventListener('click', picClicks);
+  left.addEventListener('click', picClicks);
+};
+displayThreeImages();
+//container to append event listener
 
+//click events
 function picClicks() {
   if(clicks < totClicks ) {
     clicks++;
@@ -93,9 +105,11 @@ function picClicks() {
 
     for (var index = 0; index < totProducts.length; index++) {
       if (event.target.alt === totProducts[index].name) {
-        totProducts[index].click += 1;
+        totProducts[index].clicks += 1;
+        console.log(totProducts[index].clicks);
       }
     }
+    displayThreeImages();
   } else {
     displayList();
   }
@@ -105,7 +119,11 @@ function displayList() {
   for (var j = 0; j < totProducts.length; j++) {
     var liEl = document.createElement('li');
     liEl.textContent = totProducts[j].name + 'has been clicked' + totProducts[j].clicks;
+    resultsEl.appendChild(liEl);
   }
+  left.removeEventListener('click', picClicks);
+  cent.removeEventListener('click', picClicks);
+  right.removeEventListener('click', picClicks);
 };
 //
 // //Set up function to procure a random number corresponding to imageArrayPath index
