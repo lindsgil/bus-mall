@@ -17,6 +17,7 @@ var totClicks = 25;
 var clicks = 0;
 var totProducts = [];
 var randomImageIndices = [];
+var totViews = 0;
 
 // //Define constructor for product images
 function ProductImage(name) {
