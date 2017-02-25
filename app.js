@@ -37,7 +37,6 @@ for (var i = 0; i < imageArrayName.length; i++) {
 function getRandImage() {
   return Math.floor(Math.random() * (totProducts.length));
 }
-// getRandImages();
 
 function displayThreeImages(){
 //Function to display images
