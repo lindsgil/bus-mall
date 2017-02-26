@@ -56,16 +56,12 @@ function displayThreeImages(){
   }
   console.log('pic-cont', picCont);
 
-  // picCont.removeChild(left);
-  // left = document.createElement('img');
   left.setAttribute('src', totProducts[leftPic].path);
   left.setAttribute('alt', totProducts[leftPic].name);
   console.log('left', left);
   totProducts[leftPic].views++;
-  // picCont.appendChild('left');
 
-  // picCont.removeChild(cent);
-  // cent = document.createElement('img');
+//Center picture appending to page
   cent.setAttribute('src', totProducts[centPic].path);
   cent.setAttribute('alt', totProducts[centPic].name);
   totProducts[centPic].views++;
@@ -107,7 +103,7 @@ function picClicks() {
 function displayList() {
   for (var j = 0; j < totProducts.length; j++) {
     var liEl = document.createElement('li');
-    liEl.textContent = totProducts[j].name + ' has been clicked ' + totProducts[j].clicks;
+    liEl.textContent = totProducts[j].name + ' has been clicked ' + totProducts[j].clicks + ' times';
     resultsEl.appendChild(liEl);
     localStorage.totalProducts = JSON.stringify(totProducts);
   }
