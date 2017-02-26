@@ -1,9 +1,6 @@
 'use strict';
 
 var ctx = document.getElementById('chart').getContext('2d');
-var ctx2 = document.getElementById('chart2').getContext('2d');
-
-//var data = [12, 4, 9, 3, 100, 55, 31];
 
 var totalProducts = JSON.parse(localStorage.totalProducts);
 
@@ -37,7 +34,6 @@ function getProductViews(totalProducts) {
   return productViews;
 }
 
-// var data = [10, 5, 16, 100];
 var clickData = getProductClicks(totalProducts);
 var nameData = getProductNames(totalProducts);
 var viewData = getProductViews(totalProducts);

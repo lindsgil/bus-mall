@@ -12,14 +12,14 @@ var cent = document.getElementById('cent');
 var right = document.getElementById('right');
 var resultsEl = document.getElementById('results');
 
-// //Global Variables
+//Global Variables
 var totClicks = 25;
 var clicks = 0;
 var totProducts = [];
 var randomImageIndices = [];
 var totViews = 0;
 
-// //Define constructor for product images
+//Define constructor for product images
 function ProductImage(name) {
   this.name = name;
   this.views = 0;
@@ -33,12 +33,13 @@ for (var i = 0; i < imageArrayName.length; i++) {
   totProducts.push(productIm);
 }
 
-// //Set up function to come up with a random number corresponding to imageArrayPath index
+//Set up function to come up with a random number corresponding to imageArrayPath index
 function getRandImage() {
   return Math.floor(Math.random() * (totProducts.length));
 }
 
 function displayThreeImages(){
+
 //Function to display images
   var leftPic = getRandImage();
   var centPic = getRandImage();
@@ -65,14 +66,10 @@ function displayThreeImages(){
   cent.setAttribute('src', totProducts[centPic].path);
   cent.setAttribute('alt', totProducts[centPic].name);
   totProducts[centPic].views++;
-  // picCont.appendChild('cent', cent);
 
-  // picCont.removeChild(right);
-  // right = document.createElement('img');
   right.setAttribute('src', totProducts[rightPic].path);
   right.setAttribute('alt', totProducts[rightPic].name);
   totProducts[rightPic].views++;
-  // picCont.appendChild('right');
 
   //add event listener
   right.addEventListener('click', picClicks);
@@ -80,7 +77,6 @@ function displayThreeImages(){
   left.addEventListener('click', picClicks);
 };
 displayThreeImages();
-//container to append event listener
 
 //click events
 function picClicks() {
