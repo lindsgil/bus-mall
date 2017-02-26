@@ -2,8 +2,6 @@
 
 var ctx = document.getElementById('chart').getContext('2d');
 
-//var data = [12, 4, 9, 3, 100, 55, 31];
-
 var totalProducts = JSON.parse(localStorage.totalProducts);
 
 function getProductNames(totalProducts) {
@@ -25,20 +23,33 @@ function getProductClicks(totalProducts) {
   console.log('All Product Clicks: ', productClicks);
   return productClicks;
 }
-// var data = [10, 5, 16, 100];
+
+function getProductViews(totalProducts) {
+  var productViews = [];
+
+  for (var i = 0; i < totalProducts.length; i++) {
+    productViews.push(totalProducts[i].views);
+  }
+  console.log('All Product Views: ', productViews);
+  return productViews;
+}
+
 var clickData = getProductClicks(totalProducts);
 var nameData = getProductNames(totalProducts);
-
-var labelColors = ['blue', 'red', 'orange', 'purple', 'green', 'yellow', 'salmon'];
+var viewData = getProductViews(totalProducts);
 
 var chartData = {
   type: 'bar',
   data: {
     labels: nameData,
     datasets: [{
-      label: '# of Votes / Color',
+      label: '# of Clicks',
       data: clickData,
-      backgroundColor: 'navy',
+      backgroundColor: '#ffcbd0',
+    },{
+      label: '# of Views',
+      data: viewData,
+      backgroundColor: 'grey',
     }],
   },
   options: {
